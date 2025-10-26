@@ -173,7 +173,7 @@ brokerGeneral %>%
     title = md("<div style='line-height:134px;vertical-align:middle;text-align:left;font-weight:600;font-size:64px'>
                  <img src='https://raw.githubusercontent.com/IvoVillanueva/acb_logo/main/Logo%20SM%20mosca%20340x340.png'style='width:114px; height:114px;vertical-align:middle;padding-right:12px'
                <span style='text-align:left;'>Clasificación Broker</div>"),
-    subtitle = md(glue("<span style='font-weight:400;color:#8C8C8C;fon t-size:20px'>Lideres En BrokerBasket TOP20 en el SuperManager 25/26 hasta la jornada {jornada}</span>"))
+    subtitle = md(glue("<span style='font-weight:400;color:#8C8C8C;fon t-size:20px'>Lideres en BrokerBasket TOP20 en el SuperManager 25/26 hasta la jornada {jornada}</span>"))
   ) %>%
     
     tab_source_note(
