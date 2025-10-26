@@ -39,7 +39,7 @@ jobs:
           packages: tidyverse, httr, jsonlite, gt, gtExtras, glue, lubridate
           
       - name: Run R update script
-        run: Rscript ultimajornada.R
+        run: Rscript brokergeneral.R
         shell: bash
 
       - name: Commit changes in data folder
