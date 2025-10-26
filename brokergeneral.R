@@ -35,7 +35,7 @@ jornada <- fromJSON(txt = content(GET(url = "https://supermanager.acb.com/api/ba
 #extraer datos broker general
 brokerGeneral <- fromJSON(txt = content(
   GET(
-    url = "https://supermanager.acb.com/api/basic/userteam/standing/1?_page=1&category=1&type=1&community=false",
+    url = "https://supermanager.acb.com/api/basic/userteam/standing/1?_page=1&category=2&type=1&community=false",
     add_headers(.headers = headers)
   ),
   "text",
@@ -172,8 +172,8 @@ brokerGeneral %>%
   tab_header(
     title = md("<div style='line-height:134px;vertical-align:middle;text-align:left;font-weight:600;font-size:64px'>
                  <img src='https://raw.githubusercontent.com/IvoVillanueva/acb_logo/main/Logo%20SM%20mosca%20340x340.png'style='width:114px; height:114px;vertical-align:middle;padding-right:12px'
-               <span style='text-align:left;'>Clasificación General</div>"),
-    subtitle = md(glue("<span style='font-weight:400;color:#8C8C8C;fon t-size:20px'>Lideres En la General TOP20 en el SuperManager 25/26 hasta la jornada {jornada}</span>"))
+               <span style='text-align:left;'>Clasificación Broker</div>"),
+    subtitle = md(glue("<span style='font-weight:400;color:#8C8C8C;fon t-size:20px'>Lideres En BrokerBasket TOP20 en el SuperManager 25/26 hasta la jornada {jornada}</span>"))
   ) %>%
     
     tab_source_note(
