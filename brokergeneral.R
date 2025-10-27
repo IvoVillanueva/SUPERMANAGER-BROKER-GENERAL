@@ -10,7 +10,7 @@ library(lubridate)
 #caption
 twitter <- "<span style='color:#c04719'>&#x1D54F;</span>"
 tweetelcheff <- "<span style='font-weight:bold;'>*@elcheff*</span>"
-caption <- glue("**Gráfico**: *Ivo Villanueva* • {twitter} {tweetelcheff}&nbsp;&nbsp;para&nbsp;&nbsp;{twitter} *@SuperManagerACB*")
+caption <- glue("&nbsp;&nbsp;**Gráfico**: *Ivo Villanueva* • {twitter} {tweetelcheff}&nbsp;&nbsp;para&nbsp;&nbsp;{twitter} *@SuperManagerACB*")
 
 
 # asegurar que la carpeta data existe
