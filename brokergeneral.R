@@ -128,7 +128,7 @@ brokerGeneral %>%
     c(rk1,totalPlayerPoints,rk2) ~ px(66)
   ) %>%
   cols_width(
-    c(nameTeam) ~ px(250)
+    c(nameTeam) ~ px(300)
   ) %>%
   fmt_currency(
     columns = c(brokerValor), sep_mark = ".",
@@ -181,4 +181,4 @@ brokerGeneral %>%
                      style='height:25px;width:25px;vertical-align:middle;'>", caption)
                        
       ) )%>%
-  gtsave(paste0("data/brokerGeneral_", gsub("-", "_", fecha), "_jor_", jornada, ".png"), vwidth = 3000, vheight = 1500, expand = 60)
+  gtsave(paste0("data/brokerGeneral_", gsub("-", "_", fecha), "_jor_", jornada, ".png"), vwidth = 3000, vheight = 1500, expand = 100)
