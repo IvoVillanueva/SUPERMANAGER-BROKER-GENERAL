@@ -186,7 +186,7 @@ brokerGeneral %>%
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #extraer datos broker general
-brokerGeneral <- fromJSON(txt = content(
+general <- fromJSON(txt = content(
   GET(
     url = "https://supermanager.acb.com/api/basic/userteam/standing/1?_page=1&category=1&type=1&community=false",
     add_headers(.headers = headers)
@@ -202,7 +202,7 @@ brokerGeneral <- fromJSON(txt = content(
 
 
 #tabla gt broker
-brokerGeneral %>%
+general %>%
   mutate(
     combo_img = add_photo_frame(userAvatar),
     combo_img = map(combo_img, gt::html),
