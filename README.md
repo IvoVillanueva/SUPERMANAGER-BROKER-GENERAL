@@ -1,4 +1,4 @@
-# 🏀 Clasificación Broker Y General SuperManager 2026
+# 🏀 Clasificación Broker y General SuperManager 2026
 
 Este repositorio **genera automáticamente una tabla visual con el Top 20 del BrokerBasket y de la General del SuperManager ACB 2025/26**, obteniendo los datos actualizados desde la API oficial de *SuperManager ACB* y renderizando una imagen `.png` con formato profesional.
 
