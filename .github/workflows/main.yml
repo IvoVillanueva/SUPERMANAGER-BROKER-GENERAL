@@ -1,6 +1,6 @@
 
 
-name: Clasificación Broker SuperManager 2026
+name: Clasificación Broker y General SuperManager 2026
 
 on:
   workflow_dispatch:
