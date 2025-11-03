@@ -30,7 +30,7 @@ headers <- c(
 jornada <- fromJSON(txt = content(GET(url = "https://supermanager.acb.com/api/basic/competition", add_headers(.headers = headers)),
   "text",
   encoding = "UTF-8"
-))$journeyActual$number
+))$journeyActual$number-1
 
 #extraer datos broker general
 brokerGeneral <- fromJSON(txt = content(
