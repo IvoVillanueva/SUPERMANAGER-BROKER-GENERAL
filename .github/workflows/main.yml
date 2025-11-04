@@ -1,11 +1,9 @@
-
-
 name: Clasificación Broker y General SuperManager 2026
 
 on:
   workflow_dispatch:
   schedule:
-     - cron: '0 3 * * 1'
+    - cron: '0 3 * * 1'
 
 jobs:
   Get-BROKER-SUPERMANAGER:
@@ -37,7 +35,16 @@ jobs:
         uses: r-lib/actions/setup-r-dependencies@v2
         with: 
           packages: tidyverse, httr, jsonlite, gt, gtExtras, glue, lubridate
-          
+
+      - name: Esperar a que SuperManager esté disponible
+        run: |
+          echo "Comprobando disponibilidad de SuperManager..."
+          until curl -s --head --fail "https://supermanager.acb.com/api/basic/userteam/standing/1?_page=1&type=1&category=1"; do
+            echo "No disponible. Esperando 5 minutos..."
+            sleep 300
+          done
+          echo "¡Disponible! Ejecutando script."
+
       - name: Run R update script
         run: Rscript brokergeneral.R
         shell: bash
