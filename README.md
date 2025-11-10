@@ -2,14 +2,14 @@
 
 Este repositorio **genera automáticamente una tabla visual con el Top 20 del BrokerBasket y de la General del SuperManager ACB 2025/26**, obteniendo los datos actualizados desde la API oficial de *SuperManager ACB* y renderizando una imagen `.png` con formato profesional.
 
-El proceso se ejecuta cada lunes a las **03:00 (UTC)** y guarda la clasificación semanal en la carpeta `data/`.
+El proceso se ejecuta sábado y lunes a las 00:30 hora de Madrid** y guarda la clasificación semanal en la carpeta `png/`.
 
 ---
 
 ## 📋 Qué hace este repositorio
 
 - Ejecuta el script en R (`brokergeneral.R`) que:
-  - Se conecta a la API de SuperManager usando un **token de autorización** almacenado como secreto (`SM_TOKEN`).
+  - Se conecta a la API de SuperManager usando entre otros un **token de autorización** almacenado como secreto (`SM_TOKEN`).
   - Extrae la clasificación **BrokerBasket general** (categoría 2, tipo 1).
   - Procesa los datos con `tidyverse`, `httr`, `jsonlite` y genera una tabla con **`gt` + `gtExtras`**.
   - Añade estilos personalizados, avatares de usuarios y un encabezado con logotipo.
