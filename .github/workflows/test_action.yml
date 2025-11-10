@@ -1,48 +1,28 @@
-
-
-name: Test autenticacion SuperManager
+name: Test autenticación SuperManager
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '30 7 * * 6'
+    - cron: '30 7 * * 6'   # Sábado 07:30 UTC → 08:30 en Madrid (invierno)
+  workflow_dispatch:
 
 jobs:
-  Get200-AUTORIZACION:
-    name: Comprobar si la autorización del token es 200
+  test-auth:
     runs-on: ubuntu-latest
     env:
       SM_TOKEN: ${{ secrets.SM_TOKEN }}
       URL_JORNADA: ${{ secrets.URL_JORNADA }}
     steps:
-      - uses: actions/checkout@v3  
-      
+      - uses: actions/checkout@v3
+
       - uses: r-lib/actions/setup-r@v2
-        with: 
-          use-public-rspm: true
-          r-version: 'release'
-          
-      - name: Install libcurl and libssl on Linux
-        run: sudo apt-get -y install libcurl4-openssl-dev
-        shell: bash
-        
-      - name: Cache CRAN packages
-        uses: actions/cache@v3 
         with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-r-${{ hashFiles('**/DESCRIPTION') }}
-          restore-keys: ${{ runner.os }}-r-
-          
-      - name: Install CRAN packages
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with: 
-          packages:  httr, jsonlite
+          r-version: 'release'
 
-      - name: Run R update script
-        run: Rscript scripts/test_auth.R
+      # Instala solo los paquetes mínimos y sin compilar dependencias
+      - name: Instalar httr y jsonlite
+        run: |
+          Rscript -e 'install.packages(c("httr","jsonlite"), dependencies = FALSE)'
         shell: bash
 
-      - name: Push changes
-        run: git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}on:
+      - name: Ejecutar test de autenticación
+        run: Rscript scripts/test_auth.R
