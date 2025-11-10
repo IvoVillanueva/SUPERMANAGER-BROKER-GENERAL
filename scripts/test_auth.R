@@ -1,6 +1,4 @@
-# librerias
-library(httr)
-library(jsonlite)
+source(scripts/helpers.R)
 
 # Cargar variables del entorno
 token <- Sys.getenv("SM_TOKEN")
