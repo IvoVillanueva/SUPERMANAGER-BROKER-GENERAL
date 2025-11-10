@@ -2,7 +2,7 @@
 
 Este repositorio **genera automáticamente una tabla visual con el Top 20 del BrokerBasket y de la General del SuperManager ACB 2025/26**, obteniendo los datos actualizados desde la API oficial de *SuperManager ACB* y renderizando una imagen `.png` con formato profesional.
 
-El proceso se ejecuta sábado y lunes a las 00:30 hora de Madrid** y guarda la clasificación semanal en la carpeta `png/`.
+El proceso se ejecuta sábado y lunes a las 00:30 hora de **Madrid** y guarda la clasificación semanal en la carpeta `png/`.
 
 ---
 
