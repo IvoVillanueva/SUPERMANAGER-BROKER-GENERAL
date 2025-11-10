@@ -46,5 +46,5 @@ El proceso se ejecuta sábado y lunes a las 00:30 hora de **Madrid** y guarda la
 ## 🗓️ Programación automática
 
 El workflow se ejecuta automáticamente:
-- **Todos los lunes a las 03:00 UTC**  
-  (equivalente a **05:00 en Madrid** durante el horario de verano y **04:00 en invierno**)
+- **sábado y los lunes a las 03:00 Madrid**  
+  (La actualización del salbado es solo una comprobacion de que los token funcionan para el domingo)
