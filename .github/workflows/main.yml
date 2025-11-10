@@ -12,7 +12,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       SM_TOKEN: ${{ secrets.SM_TOKEN }}
       URL_BROKER: ${{ secrets.URL_BROKER }}
-      SURL_JORNADA: ${{ secrets.URL_JORNADA }}
+      URL_JORNADA: ${{ secrets.URL_JORNADA }}
       URL_GENERAL: ${{ secrets.URL_GENERAL }}
       URL_PNG: ${{ secrets.URL_PNG }}
     steps:
