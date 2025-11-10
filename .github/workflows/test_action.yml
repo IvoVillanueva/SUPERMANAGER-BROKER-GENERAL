@@ -2,7 +2,7 @@ name: Test autenticación SuperManager
 
 on:
   schedule:
-    - cron: '30 7 * * 6'   # Sábado 07:30 UTC → 08:30 en Madrid (invierno)
+     cron: '30 17 * * 4-6' 
   workflow_dispatch:
 
 jobs:
