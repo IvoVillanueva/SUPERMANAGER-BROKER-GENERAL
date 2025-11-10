@@ -1,4 +1,6 @@
-name: Test autenticación SuperManager
+
+
+name: Test autenticacion SuperManager
 
 on:
   workflow_dispatch:
@@ -34,7 +36,7 @@ jobs:
       - name: Install CRAN packages
         uses: r-lib/actions/setup-r-dependencies@v2
         with: 
-          packages:  httr jsonlite
+          packages:  httr, jsonlite
 
       - name: Run R update script
         run: Rscript scripts/test_auth.R
