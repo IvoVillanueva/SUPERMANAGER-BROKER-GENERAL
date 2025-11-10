@@ -26,7 +26,7 @@ El proceso se ejecuta sábado y lunes a las 00:30 hora de **Madrid** y guarda la
 ## ⚙️ Cómo funciona
 
 1. **GitHub Actions** arranca el workflow:
-   - Automáticamente cada **lunes a las 03:00 UTC** (`cron: '0 3 * * 1'`).
+   - Automáticamente los **sábado y los lunes a las 03:00 Madrid** (`'30 23 * * 5,1'`).
    - Manualmente mediante *Run workflow*.
 2. Configura un entorno **R** con las dependencias necesarias:
    - `tidyverse`, `httr`, `jsonlite`, `gt`, `gtExtras`, `glue`, `lubridate`.
