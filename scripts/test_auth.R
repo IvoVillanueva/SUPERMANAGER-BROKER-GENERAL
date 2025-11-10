@@ -1,4 +1,4 @@
-source(scripts/helpers.R)
+source("scripts/helpers.R")
 
 # Cargar variables del entorno
 token <- Sys.getenv("SM_TOKEN")
