@@ -11,6 +11,10 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       SM_TOKEN: ${{ secrets.SM_TOKEN }}
+      URL_BROKER: ${{ secrets.URL_BROKER }}
+      SURL_JORNADA: ${{ secrets.URL_JORNADA }}
+      URL_GENERAL: ${{ secrets.URL_GENERAL }}
+      URL_PNG: ${{ secrets.URL_PNG }}
     steps:
       - uses: actions/checkout@v3  
       
@@ -35,17 +39,8 @@ jobs:
         with: 
           packages: tidyverse, httr, jsonlite, gt, gtExtras, glue, lubridate
 
-      - name: Esperar a que SuperManager esté disponible
-        run: |
-          echo "Comprobando disponibilidad de SuperManager..."
-          until curl -s --head --fail "https://supermanager.acb.com/api/basic/userteam/standing/1?_page=1&type=1&category=1"; do
-            echo "No disponible. Esperando 5 minutos..."
-            sleep 300
-          done
-          echo "¡Disponible! Ejecutando script."
-
       - name: Run R update script
-        run: Rscript brokergeneral.R
+        run: Rscript scripts/main_supermanager_update.R
         shell: bash
 
       - name: Commit changes in data folder
