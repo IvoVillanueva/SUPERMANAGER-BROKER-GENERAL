@@ -19,9 +19,9 @@ jobs:
           r-version: 'release'
 
       # Instala solo los paquetes mínimos y sin compilar dependencias
-      - name: Instalar httr y jsonlite
+      - name: Instalar librerias
         run: |
-          Rscript -e 'install.packages(c("httr","jsonlite"), dependencies = FALSE)'
+          Rscript -e 'install.packages(c("tidyverse","httr","jsonlite"), dependencies = FALSE)'
         shell: bash
 
       - name: Ejecutar test de autenticación
