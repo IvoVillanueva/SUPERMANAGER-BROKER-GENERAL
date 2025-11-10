@@ -1,5 +1,4 @@
 # librerias
-library(tidyverse)
 library(httr)
 library(jsonlite)
 
