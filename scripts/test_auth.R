@@ -18,6 +18,5 @@ res <- GET(url, add_headers(Authorization = token))
 if (status_code(res) == 200) {
   cat("✅ Autenticación correcta. Conexión establecida.\n")
 } else {
-  cat("❌ Error en la autenticación. Código:", status_code(res), "\n")
-  print(content(res, "text"))
+  stop(paste0("❌ Error en la autenticación. Código: ", status_code(res)))
 }
