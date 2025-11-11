@@ -6,7 +6,7 @@
 # =========================================================
 
 source("scripts/helpers.R")
-
+source("script/01_ranking_general)
 
 url <- construir_url_sm("jornada")
 df <- get_sm_data(url)
