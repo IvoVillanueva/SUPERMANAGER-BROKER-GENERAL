@@ -92,7 +92,7 @@ construir_url_sm <- function(tipo = c("general", "jornada"), indice) {
   if (tipo == "general") {
     paste0(base_url, indice, "&category=1&type=1&community=false")
   } else {
-    paste0(top_url, indice, "&community=false")
+    paste0(top_url,jornada, "&community=false")
   }
 }
 

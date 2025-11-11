@@ -1,78 +1,20 @@
+# ========================================================
+# Script: 02_ranking_jornada.R
+# Autor: Ivo Villanueva
+# Fecha: 2025-11-11
+# Descripción: Descarga del Top20 de la jornada
+# =========================================================
+
 source("scripts/helpers.R")
 
-# asegurar que la carpeta data existe
-if (!dir.exists("png")) dir.create("png")
 
-resultados <- list()
-
-for (i in 1:3081) {
-  df <- fromJSON(txt = content(
-    GET(
-      url = paste0(
-        "https://supermanager.acb.com/api/basic/userteam/standing/1?_page=",
-        i, "&category=1&type=1&community=false"
-      ),
-      add_headers(.headers = headers)
-    ),
-    "text",
-    encoding = "UTF-8"
-  )) %>%
-    tibble() %>%
-    unnest(cols = c(all)) %>%
-    select(-user) %>%
-    mutate(
-      userAvatar = paste0("https://supermanager.acb.com/files/", userAvatar),
-      pagina_num = i, .before = amount
-    )
-  
-  if (sum(df$totalPlayerPoints, na.rm = TRUE) <= 0) break
-  
-  resultados[[i]] <- df
-  
-  message("✅ Página ", i, " descargada")
-  
-  Sys.sleep(1)
-  
-  if (i %% 100 == 0) {
-    Sys.sleep(5)
-    message("⏸️ Pausa de 5 segundos después de 100 páginas")
-  }
-}
-
-funcion_number_df <- bind_rows(resultados)
+url <- construir_url_sm("jornada")
+df <- get_sm_data(url)
 
 
-write_csv(funcion_number_df, paste0("data/supermanager_alltime_standings_5", Sys.Date(), ".csv"))
-
-#######################################################################################################################################################
-################################ clasifición jornada ##################################################################################################
-#######################################################################################################################################################
-
-# fecha de hoy
-fecha <- paste0(Sys.Date(), "_semana_", week(today()))
-
-clasificacion_general <-  funcion_number_df
-
-fromJSON(txt = content(
-  GET(
-    url = paste0(
-      "https://supermanager.acb.com/api/basic/userteam/standing/1?_page=1&category=1&type=2&numJourney=",
-      jornada, "&community=false"
-    ),
-    add_headers(.headers = headers)
-  ),
-  "text",
-  encoding = "UTF-8"
-)) %>%
-  tibble() %>%
-  unnest(cols = c(all)) %>%
-  select(-user) %>%
-  mutate(userAvatar = paste0(
-    "https://supermanager.acb.com/files/",
-    userAvatar
-  )) %>%
+df %>%
   head(20) %>%
-  left_join(clasificacion_general %>%
+  left_join(df_general %>%
               select(nameTeam,
                      pointsgeneral = totalPlayerPoints,
                      positiongneral = position
@@ -82,7 +24,6 @@ fromJSON(txt = content(
     combo_img = map(combo_img, gt::html),
     rk1 = position,
     rk2 = positiongneral,
-    # rk3 = rank(jornadaPlayerPoints),
     nameTeam = toupper(nameTeam)
   ) %>%
   head(20) %>%
@@ -110,14 +51,9 @@ fromJSON(txt = content(
     totalPlayerPoints = gt::html("<span style='font-weight:bold;font-size:20px'>Pts Jor.</span>"),
     rk2 = gt::html("<span style='font-weight:bold;font-size:20px'>rk</span>"),
     pointsgeneral = gt::html("<span style='font-weight:bold;font-size:20px'>Pts Gene.</span>")
-    # rk3 = gt::html("<span style='font-weight:bold;font-size:15px'>RK</span>"),
-    # jornadaPlayerPoints = gt::html("<span style='font-weight:bold;font-size:15px'>PTSJ</span>"),
-    # ipt3 = gt::html("<span style='font-weight:bold;font-size:12px'>INT.</span>"),
-    # pt3 = gt::html("<span style='font-weight:bold;font-size:12px'>PCT%</span>")
   ) %>%
   gt_color_rows(rk1, palette = c("white", "#ffa031"), direction = -1) %>%
   gt_color_rows(rk2, palette = c("white", "#ffa031"), direction = -1) %>%
-  # data_color(rk3, palette = c("white", "#ffa031")) %>%
   cols_width(
     c(combo_img) ~ px(56)
   ) %>%
@@ -133,12 +69,6 @@ fromJSON(txt = content(
   cols_width(
     c(arrow) ~ px(160)
   ) %>%
-  # fmt_currency(columns = c(brokerValor),sep_mark = ".",
-  #                  currency = "EUR",
-  #                  use_subunits = FALSE,
-  #                  placement = "right",
-  #
-  # )  %>%
   text_transform(
     locations = cells_body(columns = c(arrow)),
     fn = function(x) {
@@ -182,4 +112,5 @@ fromJSON(txt = content(
     source_note = md(paste0("**Datos**: *@SuperManagerACB*&nbsp;&nbsp; <img src='https://raw.githubusercontent.com/IvoVillanueva/acb_logo/main/Logo%20SM%20mosca%20340x340.png'
                      style='height:25px;width:25px;vertical-align:middle;'>", caption))
   ) %>%
-  #gtsave(paste0("data/jornada_con_general_", gsub("-", "_", fecha), "_jor_", jornada, ".png"), vwidth = 3000, vheight = 1500, expand = 200)
+  gtsave(paste0("png/jornada_", jornada ,"con_general.png"), vwidth = 3000, vheight = 1500, expand = 200)
+  

@@ -119,4 +119,4 @@ broker_general %>%
     source_note = md(paste0("**Datos**: *@SuperManagerACB*&nbsp;&nbsp; <img src='https://raw.githubusercontent.com/IvoVillanueva/acb_logo/main/Logo%20SM%20mosca%20340x340.png'
                      style='height:25px;width:25px;vertical-align:middle;'>", caption))
   ) %>%
-  gtsave(paste0("png/brokerGeneral_", gsub("-", "_", fecha), "_jor_", jornada, ".png"), vwidth = 3000, vheight = 1500, expand = 200)
+  gtsave(paste0("png/brokerGeneral_jor_", jornada, ".png"), vwidth = 3000, vheight = 1500, expand = 200)
