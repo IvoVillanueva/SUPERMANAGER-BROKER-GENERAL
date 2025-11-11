@@ -31,7 +31,7 @@ for (i in 1:3081) {
 # Dataset unificado
 df_general <- bind_rows(resultados)
 
-# Guardar CSV sin extras (solo datos crudos)
+# Guardar CSV 
 df_general %>%
   mutate(across(everything(), ~ replace_na(., 0))) %>%
   write_csv("data/jornada_general.csv")

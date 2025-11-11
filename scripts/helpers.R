@@ -77,7 +77,7 @@ add_photo_frame <- function(userAvatar) {
 }
 
 # Variables de entorno
-base_url <- Sys.getenv("SM_URL_BASE")
+base_url <- Sys.getenv("URL_GENERAL_BASE")
 top_url <- Sys.getenv("URL_TOP_JORNADA")
 png_base <- Sys.getenv("URL_PNG")
 
@@ -86,18 +86,18 @@ png_base <- Sys.getenv("URL_PNG")
 # ================================
 
 # Construye la URL según tipo ("general" o "jornada")
-construir_url_sm <- function(tipo = c("general", "jornada"), indice = 1) {
+construir_url_sm <- function(tipo = c("general", "jornada"), indice) {
   tipo <- match.arg(tipo)
   
   if (tipo == "general") {
-    paste0(Sys.getenv("SM_URL_BASE"), indice, "&category=1&type=1&community=false")
+    paste0(base_url, indice, "&category=1&type=1&community=false")
   } else {
-    paste0(Sys.getenv("URL_TOP_JORNADA"), indice, "&community=false")
+    paste0(top_url, indice, "&community=false")
   }
 }
 
 # Descarga y procesa los datos desde una URL del SuperManager
-get_sm_data <- function(url) {
+get_sm_data <- function(construir_url_sm) {
   resp <- GET(url, add_headers(.headers = headers))
   
   if (status_code(resp) != 200) {
