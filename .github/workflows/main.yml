@@ -15,6 +15,7 @@ jobs:
       URL_BROKER: ${{ secrets.URL_BROKER }}
       URL_JORNADA: ${{ secrets.URL_JORNADA }}
       URL_GENERAL: ${{ secrets.URL_GENERAL }}
+      URL_GENERAL_BASE: ${{ secrets.URL_GENERAL_BASE }}
       URL_PNG: ${{ secrets.URL_PNG }}
     steps:
       - uses: actions/checkout@v3  
