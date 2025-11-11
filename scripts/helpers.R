@@ -21,12 +21,21 @@ headers <- c(
   "Accept" = "application/json"
 )
 
+# ---------------------------------------------------------
+# Obtiene el número de la jornada anterior (actual - 1)
+# La API devuelve la jornada en curso, pero los datos válidos
+# son de la jornada ya finalizada.
+# ---------------------------------------------------------
+
 # numero de jornada
 jornada <- fromJSON(txt = content(GET(url = Sys.getenv("URL_JORNADA"), add_headers(.headers = headers)),
                                   "text",
                                   encoding = "UTF-8"
 ))$journeyActual$number-1
 
+# ================================
+# Funciones
+# ================================
 
 #función ranking
 add_rk <- function(rk) {
@@ -61,8 +70,43 @@ add_photo_frame <- function(userAvatar) {
          margin-top: 8px!important;
          display: block;
          align-items: right;
-         border: 2px solid 'black';' src='{userAvatar}'/>
+         border: 2px solid black;
+       ' src='{userAvatar}'/>
     </div>"
   )
 }
 
+# Variables de entorno
+base_url <- Sys.getenv("SM_URL_BASE")
+top_url <- Sys.getenv("URL_TOP_JORNADA")
+png_base <- Sys.getenv("URL_PNG")
+
+# ================================
+# Funciones JSON - SuperManager ACB
+# ================================
+
+# Construye la URL según tipo ("general" o "jornada")
+construir_url_sm <- function(tipo = c("general", "jornada"), indice = 1) {
+  tipo <- match.arg(tipo)
+  
+  if (tipo == "general") {
+    paste0(Sys.getenv("SM_URL_BASE"), indice, "&category=1&type=1&community=false")
+  } else {
+    paste0(Sys.getenv("URL_TOP_JORNADA"), indice, "&community=false")
+  }
+}
+
+# Descarga y procesa los datos desde una URL del SuperManager
+get_sm_data <- function(url) {
+  resp <- GET(url, add_headers(.headers = headers))
+  
+  if (status_code(resp) != 200) {
+    warning(paste("⚠️ Error al acceder a", url))
+    return(NULL)
+  }
+  
+  fromJSON(txt = content(resp, "text", encoding = "UTF-8")) %>%
+    tibble() %>%
+    unnest(cols = c(all)) %>%
+    select(-user)
+}
