@@ -32,4 +32,4 @@ for (i in 1:3081) {
 df_general <- bind_rows(resultados)
 
 # Guardar CSV 
-write_csv("data/jornada_general.csv")
+write_csv(df_general,"data/jornada_general.csv")
