@@ -32,6 +32,4 @@ for (i in 1:3081) {
 df_general <- bind_rows(resultados)
 
 # Guardar CSV 
-df_general %>%
-  mutate(across(everything(), ~ replace_na(., 0))) %>%
-  write_csv("data/jornada_general.csv")
+write_csv("data/jornada_general.csv")
