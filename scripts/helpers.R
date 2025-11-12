@@ -108,5 +108,6 @@ get_sm_data <- function(construir_url_sm) {
   fromJSON(txt = content(resp, "text", encoding = "UTF-8")) %>%
     tibble() %>%
     unnest(cols = c(all)) %>%
-    select(-user)
+    select(-user)%>%
+    mutate(userAvatar = paste0(Sys.getenv("URL_PNG"), userAvatar))
 }
