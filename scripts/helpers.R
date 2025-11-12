@@ -109,5 +109,5 @@ get_sm_data <- function(construir_url_sm) {
     tibble() %>%
     unnest(cols = c(all)) %>%
     select(-user)%>%
-    mutate(userAvatar = paste0(Sys.getenv("URL_PNG"), userAvatar))
+    mutate(userAvatar = paste0(png_base, userAvatar))
 }
