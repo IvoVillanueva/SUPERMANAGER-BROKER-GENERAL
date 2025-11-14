@@ -25,7 +25,7 @@ Generar información de apoyo para decisiones de equipo o contenido analítico.
 
 ---
 
-🔄 Mantenimiento
+##🔄 Mantenimiento
 
 El bot no requiere supervisión continua.
 Solo es necesario:
