@@ -1,4 +1,4 @@
-name: ChatGPT README Auto-Enhancer
+name: ChatGPT README PR Enhancer
 
 on:
   push:
@@ -8,6 +8,9 @@ on:
 jobs:
   enhance-readme:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -41,22 +44,40 @@ jobs:
               \"messages\": [
                 {
                   \"role\": \"system\",
-                  \"content\": \"Eres un redactor técnico experto en R, documentación y repositorios de datos. Tu tarea es reescribir README.md con estilo profesional, manteniendo la información actual pero mejorando estructura, claridad, formato y presentación. Incluye badges, secciones de instalación, uso, dependencias y ejemplos si son relevantes. No inventes código nuevo, pero sugiere dónde incluir imágenes o gráficos del repositorio.\"
+                  \"content\": \"Eres un redactor técnico experto en R, documentación y repositorios de datos. Mejora el README.md con tono profesional, manteniendo la información existente. Añade estructura clara, dependencias, ejemplos, posibles imágenes y badges. No inventes código.\"
                 },
                 {
                   \"role\": \"user\",
-                  \"content\": \"Aquí está el README actual. Devuelve una nueva versión mejorada, profesional y lista para reemplazar el archivo:\n\n$README_CONTENT\"
+                  \"content\": \"Aquí está el README actual. Devuelve una nueva versión lista para reemplazarlo:\n\n$README_CONTENT\"
                 }
               ],
               \"temperature\": 0.4
             }" | jq -r '.choices[0].message.content')
 
-          echo "$RESPONSE" > README.md
+          echo "$RESPONSE" > README_new.md
 
-      - name: Commit and push updated README
+      - name: Check for differences
+        id: diff
         run: |
-          git config --global user.name "ChatGPT Agent"
-          git config --global user.email "actions@github.com"
-          git add README.md
-          git commit -m "📝 Mejora automática del README con ChatGPT"
-          git push
+          if ! diff -q README.md README_new.md > /dev/null; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request with updated README
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "📝 Mejora automática del README con ChatGPT"
+          branch: chatgpt/readme-update
+          title: "Mejora automática del README.md"
+          body: |
+            Este Pull Request ha sido generado automáticamente por ChatGPT.
+            Revisa los cambios propuestos al README.md.
+          add-paths: README_new.md
+
+      - name: Rename file to README.md for PR
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          mv README_new.md README.md
