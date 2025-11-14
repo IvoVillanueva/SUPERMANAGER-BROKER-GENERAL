@@ -19,15 +19,19 @@ Una vez actualizado, el bot continúa funcionando de forma completamente autóno
 
 ## 🧠 Objetivo
 
-Simplificar la gestión y análisis del mercado de jugadores del SuperManager.  
-El sistema automatiza el flujo de datos que normalmente se realiza de forma manual, ayudando a:
-
-- Detectar subidas y bajadas de precios.
-- Identificar jugadores infravalorados o sobrevalorados.
-- Generar información de apoyo para decisiones de equipo o contenido analítico.
+Automatizar la extracción de los rankings de los usuarios del **SuperManager**.  
+El sistema automatiza el flujo de datos que normalmente se realiza de forma manual
+Generar información de apoyo para decisiones de equipo o contenido analítico.
 
 ---
 
 ## 📦 Estructura del proyecto
+
+SUPERMANAGER-BROKER-GENERAL/
+├── data/ # Archivos de entrada o datos históricos
+├── scripts/ # Scripts en R que ejecuta el bot
+├── outputs/ # Resultados generados automáticamente (CSV, logs, etc.)
+├── README.md # Documentación del proyecto
+└── .github/ # (Opcional) Automatizaciones o integraciones
 
 
