@@ -25,13 +25,12 @@ Generar información de apoyo para decisiones de equipo o contenido analítico.
 
 ---
 
-## 📦 Estructura del proyecto
+🔄 Mantenimiento
 
-SUPERMANAGER-BROKER-GENERAL/
-├── data/ # Archivos de entrada o datos históricos
-├── scripts/ # Scripts en R que ejecuta el bot
-├── outputs/ # Resultados generados automáticamente (CSV, logs, etc.)
-├── README.md # Documentación del proyecto
-└── .github/ # (Opcional) Automatizaciones o integraciones
+El bot no requiere supervisión continua.
+Solo es necesario:
 
+Actualizar el Bearer token cuando expire.
+
+(Opcional) Revisar que las rutas y endpoints de la ACB no hayan cambiado.
 
