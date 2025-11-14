@@ -32,13 +32,14 @@ jobs:
             echo "EOF" >> $GITHUB_OUTPUT
           fi
 
-      - name: Generate enhanced README with ChatGPT
+      - name: Generate enhanced README with ChatGPT (debug)
         id: chatgpt
         run: |
           README_CONTENT=$(echo "${{ steps.readme.outputs.content }}" | sed 's/"/\\"/g')
 
-          # Llamada a la API
-          RESPONSE=$(curl -s -D headers.txt -o body.txt \
+          echo "=== Enviando contenido del README a ChatGPT ==="
+
+          RESPONSE=$(curl -s -w "\n%{http_code}" \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
             -d "{
@@ -46,41 +47,38 @@ jobs:
               \"messages\": [
                 {
                   \"role\": \"system\",
-                  \"content\": \"Eres un redactor técnico experto en R y documentación. Mejora el README.md con tono profesional, estructura clara y ejemplos. No inventes código ni borres información útil.\"
+                  \"content\": \"Eres un redactor técnico experto en R y documentación. Mejora el README.md manteniendo el contenido actual, pero con tono profesional, estructura clara, ejemplos y sugerencias de imágenes. No inventes código ni borres información útil.\"
                 },
                 {
                   \"role\": \"user\",
-                  \"content\": \"Aquí está el README actual. Devuelve una nueva versión mejorada, lista para reemplazarlo:\n\n$README_CONTENT\"
+                  \"content\": \"Aquí está el README actual:\n\n$README_CONTENT\"
                 }
               ],
               \"temperature\": 0.4
-            }" https://api.openai.com/v1/chat/completions)
+            }" \
+            https://api.openai.com/v1/chat/completions)
 
-          # Log de la cabecera HTTP
-          echo "----- HEADERS -----"
-          cat headers.txt
+          BODY=$(echo "$RESPONSE" | head -n -1)
+          STATUS=$(echo "$RESPONSE" | tail -n 1)
 
-          # Verifica si hay error en la API
-          if grep -q "HTTP/1.1 401" headers.txt; then
-            echo "❌ Error 401: clave de API incorrecta o no encontrada."
+          echo "=== CÓDIGO DE ESTADO ==="
+          echo "$STATUS"
+          echo "=== CUERPO COMPLETO DE LA RESPUESTA ==="
+          echo "$BODY"
+
+          if [ "$STATUS" -ne 200 ]; then
+            echo "⚠️ La API devolvió error $STATUS, manteniendo README original."
             cp README.md README_new.md
             exit 0
           fi
 
-          if grep -q "HTTP/1.1 429" headers.txt; then
-            echo "⚠️ Límite de peticiones alcanzado o cuenta sin crédito."
-            cp README.md README_new.md
-            exit 0
-          fi
+          OUTPUT=$(echo "$BODY" | jq -r '.choices[0].message.content // empty')
 
-          # Extrae contenido del body
-          OUTPUT=$(cat body.txt | jq -r '.choices[0].message.content // empty')
-
-          echo "----- RAW OUTPUT -----"
+          echo "=== CONTENIDO EXTRAÍDO DE LA RESPUESTA ==="
           echo "$OUTPUT"
 
           if [ -z "$OUTPUT" ]; then
-            echo "⚠️ No se recibió contenido válido, manteniendo README original."
+            echo "⚠️ ChatGPT no devolvió contenido válido (vacío o null)."
             cp README.md README_new.md
           else
             echo "$OUTPUT" > README_new.md
