@@ -9,8 +9,7 @@
 El bot ejecuta de forma automática los scripts que:
 
 - Obtienen y procesan datos del SuperManager ACB.
-- Calculan variaciones de precio y rendimiento por jornada.
-- Guardan los resultados en archivos `.csv` listos para su uso en otras aplicaciones o paneles (por ejemplo, una app Shiny o dashboard externo).
+- Guardan los resultados en archivos `.png` listos para publicar en **X**.
 - Actualizan los datos con mínima intervención humana.
 
 La única tarea de mantenimiento necesaria es **renovar periódicamente el token de autorización (Bearer)**, que permite acceder a los endpoints protegidos del SuperManager.  
