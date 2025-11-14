@@ -1,46 +1,62 @@
-name: ChatGPT PR Review
+name: ChatGPT README Auto-Enhancer
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
-  review:
+  enhance-readme:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install dependencies (jq)
+      - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Extract diff
-        id: diff
+      - name: Read current README
+        id: readme
         run: |
-          git fetch origin ${{ github.base_ref }} --depth=1
-          git diff origin/${{ github.base_ref }} > pr_diff.txt
+          if [ -f "README.md" ]; then
+            echo "content<<EOF" >> $GITHUB_OUTPUT
+            cat README.md >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "content<<EOF" >> $GITHUB_OUTPUT
+            echo "El proyecto aún no tiene README.md" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Call ChatGPT for review
+      - name: Generate enhanced README
         id: chatgpt
         run: |
-          DIFF_CONTENT=$(sed 's/"/\\"/g' pr_diff.txt)
+          README_CONTENT=$(echo "${{ steps.readme.outputs.content }}" | sed 's/"/\\"/g')
+
           RESPONSE=$(curl -s https://api.openai.com/v1/chat/completions \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
             -d "{
               \"model\": \"gpt-4o-mini\",
               \"messages\": [
-                {\"role\": \"system\", \"content\": \"Eres un revisor de código experto en R, proyectos de datos y buenas prácticas de ingeniería de software. Da comentarios claros, críticos, constructivos y concretos.\"},
-                {\"role\": \"user\", \"content\": \"Aquí tienes el diff de un Pull Request. Por favor revisa y comenta aspectos de claridad, rendimiento, estilo, modularidad, posibles errores y mejoras:\n\n$DIFF_CONTENT\"}
+                {
+                  \"role\": \"system\",
+                  \"content\": \"Eres un redactor técnico experto en R, documentación y repositorios de datos. Tu tarea es reescribir README.md con estilo profesional, manteniendo la información actual pero mejorando estructura, claridad, formato y presentación. Incluye badges, secciones de instalación, uso, dependencias y ejemplos si son relevantes. No inventes código nuevo, pero sugiere dónde incluir imágenes o gráficos del repositorio.\"
+                },
+                {
+                  \"role\": \"user\",
+                  \"content\": \"Aquí está el README actual. Devuelve una nueva versión mejorada, profesional y lista para reemplazar el archivo:\n\n$README_CONTENT\"
+                }
               ],
-              \"temperature\": 0.2
+              \"temperature\": 0.4
             }" | jq -r '.choices[0].message.content')
-          echo "review<<EOF" >> $GITHUB_OUTPUT
-          echo "$RESPONSE" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Post review comment on PR
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          header: "ChatGPT Review"
-          message: ${{ steps.chatgpt.outputs.review }}
+          echo "$RESPONSE" > README.md
+
+      - name: Commit and push updated README
+        run: |
+          git config --global user.name "ChatGPT Agent"
+          git config --global user.email "actions@github.com"
+          git add README.md
+          git commit -m "📝 Mejora automática del README con ChatGPT"
+          git push
