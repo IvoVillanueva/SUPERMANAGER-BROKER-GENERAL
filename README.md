@@ -34,3 +34,7 @@ Solo es necesario:
 
 (Opcional) Revisar que las rutas y endpoints de la ACB no hayan cambiado.
 
+## 🤝 Requisitos
+
+Las sugerencias y mejoras son bienvenidas.
+Puedes abrir un issue o un pull request con ideas de mejora o scripts adicionales.
