@@ -34,7 +34,25 @@ Solo es necesario:
 
 (Opcional) Revisar que las rutas y endpoints de la ACB no hayan cambiado.
 
+---
+
 ## 🤝 Requisitos
 
 Las sugerencias y mejoras son bienvenidas.
 Puedes abrir un issue o un pull request con ideas de mejora o scripts adicionales.
+
+---
+
+## ✍️ Autor
+
+Ivo Villanueva
+📧 Contacto: @supermanagerACB
+
+📊 Proyecto vinculado a The Clean Shot — análisis y visualización de datos de baloncesto.
+
+---
+
+## 🧾 Licencia
+
+Distribuido bajo licencia MIT.
+Eres libre de usar, modificar y compartir este código citando la autoría original.
