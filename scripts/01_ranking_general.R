@@ -8,7 +8,6 @@
 
 source("scripts/helpers.R")
 
-if (!dir.exists("data")) dir.create("data")
 
 pausa <- 1
 pause_every <- 100
