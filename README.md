@@ -25,12 +25,12 @@ Generar información de apoyo para decisiones de equipo o contenido analítico.
 
 ---
 
-##🔄 Mantenimiento
+## 🧠 Requisitos
 
 El bot no requiere supervisión continua.
 Solo es necesario:
 
-Actualizar el Bearer token cuando expire.
+- Actualizar el Bearer token cuando expire.
 
 (Opcional) Revisar que las rutas y endpoints de la ACB no hayan cambiado.
 
