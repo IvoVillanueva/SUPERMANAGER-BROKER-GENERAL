@@ -11,6 +11,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -36,25 +37,47 @@ jobs:
         run: |
           README_CONTENT=$(echo "${{ steps.readme.outputs.content }}" | sed 's/"/\\"/g')
 
-          RESPONSE=$(curl -s https://api.openai.com/v1/chat/completions \
+          RESPONSE=$(curl -s -w "\n%{http_code}" https://api.openai.com/v1/chat/completions \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
             -d "{
-              \"model\": \"gpt-4o-mini\",
+              \"model\": \"gpt-4-turbo\",
               \"messages\": [
                 {
                   \"role\": \"system\",
-                  \"content\": \"Eres un redactor técnico experto en R, documentación y repositorios de datos. Mejora el README.md con tono profesional, manteniendo la información existente. Añade estructura clara, dependencias, ejemplos, posibles imágenes y badges. No inventes código.\"
+                  \"content\": \"Eres un redactor técnico experto en R y documentación. Mejora el README.md manteniendo su contenido actual, pero con tono profesional, estructura clara, ejemplos y posibles imágenes. No inventes código nuevo ni borres información útil.\"
                 },
                 {
                   \"role\": \"user\",
-                  \"content\": \"Aquí está el README actual. Devuelve una nueva versión lista para reemplazarlo:\n\n$README_CONTENT\"
+                  \"content\": \"Aquí está el README actual. Devuelve la versión mejorada lista para reemplazarlo:\n\n$README_CONTENT\"
                 }
               ],
               \"temperature\": 0.4
-            }" | jq -r '.choices[0].message.content')
+            }")
 
-          echo "$RESPONSE" > README_new.md
+          BODY=$(echo "$RESPONSE" | head -n -1)
+          STATUS=$(echo "$RESPONSE" | tail -n 1)
+
+          echo "----- STATUS DE RESPUESTA -----"
+          echo "$STATUS"
+          echo "----- RESPUESTA COMPLETA -----"
+          echo "$BODY"
+
+          if [ "$STATUS" -ne 200 ]; then
+            echo "Error de API: código $STATUS"
+            echo "README no modificado."
+            cp README.md README_new.md
+            exit 0
+          fi
+
+          OUTPUT=$(echo "$BODY" | jq -r '.choices[0].message.content // empty')
+
+          if [ -z "$OUTPUT" ]; then
+            echo "⚠️ No se recibió contenido válido, se mantiene el README actual."
+            cp README.md README_new.md
+          else
+            echo "$OUTPUT" > README_new.md
+          fi
 
       - name: Check for differences
         id: diff
@@ -74,10 +97,15 @@ jobs:
           title: "Mejora automática del README.md"
           body: |
             Este Pull Request ha sido generado automáticamente por ChatGPT.
-            Revisa los cambios propuestos al README.md.
+            
+            **Cambios detectados:**
+            - Revisión de estilo, claridad y estructura.
+            - Mejora del tono profesional y formato.
+            - Sugerencias de secciones adicionales o ejemplos.
+
+            Por favor, revisa el nuevo README.md antes de fusionarlo.
           add-paths: README_new.md
 
       - name: Rename file to README.md for PR
         if: steps.diff.outputs.changed == 'true'
-        run: |
-          mv README_new.md README.md
+        run: mv README_new.md README.md
