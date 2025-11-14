@@ -1,7 +1,7 @@
 # 🏀 SUPERMANAGER BROKER GENERAL
 
-**SUPERMANAGER BROKER GENERAL** es un bot desarrollado en **R** que automatiza el seguimiento y análisis del mercado de jugadores del **SuperManager ACB**.  
-Su objetivo es mantener actualizados los datos del juego y generar información útil para analizar tendencias de precios, rendimiento y oportunidades de mercado.
+**SUPERMANAGER BROKER GENERAL** es un bot desarrollado en **R** que automatiza la extracción de los datos de los usuarios del juego del **SuperManager ACB**.  
+Su objetivo es extraer el **TO20** actualizado de la **jornada, la general, el Broker** y generar un png por ranking.
 
 ---
 
