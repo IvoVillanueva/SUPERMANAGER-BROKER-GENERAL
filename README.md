@@ -54,5 +54,5 @@ Ivo Villanueva
 
 ## 🧾 Licencia
 
-Distribuido bajo licencia MIT.
+Distribuido bajo **licencia MIT**.
 Eres libre de usar, modificar y compartir este código citando la autoría original.
