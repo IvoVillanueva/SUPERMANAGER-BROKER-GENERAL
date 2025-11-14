@@ -46,7 +46,7 @@ Puedes abrir un issue o un pull request con ideas de mejora o scripts adicionale
 ## ✍️ Autor
 
 Ivo Villanueva
-📧 Contacto: @supermanagerACB
+📧 Contacto: @elcheff
 
 📊 Proyecto vinculado a The Clean Shot — análisis y visualización de datos de baloncesto.
 
