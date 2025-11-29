@@ -15,7 +15,7 @@
 
 <a href="https://www.acb.com"><img src="https://www.acb.com/docs/descarga/logos/liga_endesa/PNG/ligaendesa_horizontal_positivo.png" alt="ACB Liga Endesa" width="100"/></a>
 &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://supermanager.acb.com"><img src="https://raw.githubusercontent.com/IvoVillanueva/acb_logo/main/Logo%20SM%20mosca%20340x340.png" alt="SuperManager ACB" width="80"/></a>
+<a href="https://supermanager.acb.com"><img src="https://raw.githubusercontent.com/IvoVillanueva/acb_logo/main/Logo%20SM%20mosca%20340x340.png" alt="SuperManager ACB" width="100"/></a>
 
 *Datos oficiales de [ACB.com](https://www.acb.com) • Juego [SuperManager ACB](https://supermanager.acb.com)*
 
@@ -342,6 +342,6 @@ copias del Software.
 
 <a href="https://www.acb.com"><img src="https://www.acb.com/docs/descarga/logos/liga_endesa/PNG/ligaendesa_horizontal_positivo.png" alt="ACB Liga Endesa" width="60"/></a>
 &nbsp;&nbsp;
-<a href="https://supermanager.acb.com"><img src="https://raw.githubusercontent.com/IvoVillanueva/acb_logo/main/Logo%20SM%20mosca%20340x340.png" alt="SuperManager ACB" width="50"/></a>
+<a href="https://supermanager.acb.com"><img src="https://raw.githubusercontent.com/IvoVillanueva/acb_logo/main/Logo%20SM%20mosca%20340x340.png" alt="SuperManager ACB" width="100"/></a>
 
 </div>
