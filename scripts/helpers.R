@@ -28,10 +28,10 @@ headers <- c(
 # ---------------------------------------------------------
 
 # numero de jornada
-jornada <- fromJSON(txt = content(GET(url = Sys.getenv("URL_JORNADA"), add_headers(.headers = headers)),
+jornada <- unique(fromJSON(txt = content(GET(url = Sys.getenv("URL_JORNADA"), add_headers(.headers = headers)),
                                   "text",
                                   encoding = "UTF-8"
-))$journeyActual$number-1
+))$journeyActual$number-1)
 
 # ================================
 # Funciones
