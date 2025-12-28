@@ -110,10 +110,10 @@ general %>%
     title = md("<div style='line-height:134px;vertical-align:middle;text-align:left;font-weight:600;font-size:64px'>
                  <img src='https://raw.githubusercontent.com/IvoVillanueva/SUPERMANAGER-BROKER-GENERAL/refs/heads/main/png/LogoSMNavidadAzulmarino.png'style='width:114px; height:114px;vertical-align:middle;padding-right:12px'
                <span style='text-align:left;'>Clasificación General</div>"),
-    subtitle = md(glue("<span style='font-weight:400;color:#8C8C8C;fon t-size:20px'>Lideres En la General TOP20 en el SUPERMANAGER DE NAVIDAD D25/26 hasta la jornada {jornada}</span>"))
+    subtitle = md(glue("<span style='font-weight:400;color:#8C8C8C;fon t-size:20px'>Lideres En la General TOP20 en el SUPERMANAGER DE NAVIDAD D25/26 hasta la jornada {jornada_navidad}</span>"))
   ) %>%
   tab_source_note(
     source_note = md(paste0("**Datos**: *@SuperManagerACB*&nbsp;&nbsp; <img src='https://raw.githubusercontent.com/IvoVillanueva/acb_logo/main/Logo%20SM%20mosca%20340x340.png'
                      style='height:25px;width:25px;vertical-align:middle;'>", caption))
   ) %>%
-  gtsave(paste0("png/General_jor_", jornada, ".png"), vwidth = 3000, vheight = 1500, expand = 200)
+  gtsave(paste0("png/General_jor_", jornada_navidad, ".png"), vwidth = 3000, vheight = 1500, expand = 200)
