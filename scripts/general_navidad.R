@@ -109,7 +109,7 @@ general %>%
   tab_header(
     title = md("<div style='line-height:134px;vertical-align:middle;text-align:left;font-weight:600;font-size:64px'>
                  <img src='https://raw.githubusercontent.com/IvoVillanueva/SUPERMANAGER-BROKER-GENERAL/refs/heads/main/png/LogoSMNavidadAzulmarino.png'style='width:114px; height:114px;vertical-align:middle;padding-right:12px'
-               <span style='text-align:left;'>Clasificación General</div>"),
+               <span style='text-align:left;'>Clasificación NAVIDAD</div>"),
     subtitle = md(glue("<span style='font-weight:400;color:#8C8C8C;fon t-size:20px'>Lideres En la General TOP20 en el SUPERMANAGER DE NAVIDAD D25/26 hasta la jornada {jornada_navidad}</span>"))
   ) %>%
   tab_source_note(
