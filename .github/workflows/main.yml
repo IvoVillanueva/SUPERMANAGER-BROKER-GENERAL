@@ -16,6 +16,7 @@ jobs:
       URL_JORNADA: ${{ secrets.URL_JORNADA }}
       URL_TOP_JORNADA: ${{ secrets.URL_TOP_JORNADA }}
       URL_GENERAL: ${{ secrets.URL_GENERAL }}
+      URL_GENERAL_NAVIDAD: ${{ secrets.URL_GENERAL_NAVIDAD }}
       URL_GENERAL_BASE: ${{ secrets.URL_GENERAL_BASE }}
       URL_PNG: ${{ secrets.URL_PNG }}
     steps:
