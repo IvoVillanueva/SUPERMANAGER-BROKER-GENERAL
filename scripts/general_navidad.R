@@ -118,7 +118,11 @@ general %>%
     title = md("<div style='line-height:134px;vertical-align:middle;text-align:left;font-weight:600;font-size:64px'>
                  <img src='https://raw.githubusercontent.com/IvoVillanueva/SUPERMANAGER-BROKER-GENERAL/refs/heads/main/png/LogoSMNavidadAzulmarino.png'style='width:114px; height:114px;vertical-align:middle;padding-right:12px'
                <span style='text-align:left;font-color:#1E1E1E;'>CLASIFICACIÓN DE NAVIDAD</div>"),
-    subtitle = md(glue("<span style='font-weight:400;font-size:25px; font-color:#7A0C0C;'>Lideres En la General TOP20 en el SUPERMANAGER DE NAVIDAD D25/26 hasta la jornada {jornada_navidad}</span>"))
+    subtitle =md(glue(
+  "<span style='font-weight:400; font-size:23px; color:#7A0C0C;'>
+   Líderes en la General TOP20 del SUPERMANAGER de Navidad D25/26 hasta la jornada {jornada_navidad}
+   </span>"
+))
   ) %>%
   tab_source_note(
     source_note = md(paste0("**Datos**: *@SuperManagerACB*&nbsp;&nbsp; <img src='https://raw.githubusercontent.com/IvoVillanueva/acb_logo/main/Logo%20SM%20mosca%20340x340.png'
