@@ -40,7 +40,8 @@ general %>%
     align = "left",
     columns = c(username)
   ) %>%
-  gt_merge_stack(col1 = nameTeam, col2 = username, font_size = c("18px", "14px")) %>%
+  gt_merge_stack(col1 = nameTeam, col2 = username, font_size = c("18px", "14px"),
+                 palette = c("#1E1E1E","#7A0C0C")) %>%
   cols_label(
     arrow = "",
     combo_img = "",
