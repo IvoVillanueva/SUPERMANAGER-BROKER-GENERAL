@@ -31,7 +31,7 @@ headers <- c(
 jornada <- unique(fromJSON(txt = content(GET(url = Sys.getenv("URL_JORNADA"), add_headers(.headers = headers)),
                                   "text",
                                   encoding = "UTF-8"
-))$journeyActual$number-1)
+))$journeyActual$number[1] -1)
 
 jornada_navidad <- unique(fromJSON(txt = content(GET(url = Sys.getenv("URL_JORNADA"), add_headers(.headers = headers)),
                                   "text",
