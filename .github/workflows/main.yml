@@ -2,8 +2,8 @@ name: Clasificación Broker y General SuperManager 2026
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 23 * * 0'
+  #schedule:
+  #  - cron: '0 23 * * 0'
 
 jobs:
   Get-BROKER-SUPERMANAGER:
