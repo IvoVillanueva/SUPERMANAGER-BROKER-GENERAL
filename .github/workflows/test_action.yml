@@ -2,8 +2,8 @@ name: Test autenticación SuperManager
 
 on: 
    workflow_dispatch:
-   schedule:
-     - cron: '30 17 * * 4-6' 
+   #schedule:
+    # - cron: '30 17 * * 4-6' 
  
 
 jobs:
