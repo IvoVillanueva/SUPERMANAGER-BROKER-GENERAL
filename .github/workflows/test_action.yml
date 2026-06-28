@@ -6,7 +6,7 @@ on:
     # - cron: '30 17 * * 4-6' 
  
 
-jobs:
+jobs: 
   test-auth:
     runs-on: ubuntu-latest
     env:
